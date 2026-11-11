@@ -45,7 +45,7 @@ const StatusBadge = React.forwardRef<HTMLSpanElement, StatusBadgeProps>(
       <span
         ref={ref}
         className={clx(
-          "txt-compact-xsmall-plus box-border flex w-fit select-none items-center overflow-hidden rounded-md border border-ui-border-base bg-ui-bg-subtle pl-0 pr-1 leading-none text-ui-fg-subtle",
+          "txt-compact-xsmall-plus box-border flex w-fit select-none items-center overflow-hidden rounded-md border border-ui-border-base bg-ui-bg-subtle ps-0 pe-1 leading-none text-ui-fg-subtle",
           className
         )}
         {...props}

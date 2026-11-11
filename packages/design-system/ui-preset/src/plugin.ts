@@ -14,7 +14,14 @@ import { effects } from "./theme/tokens/effects"
 import { typography } from "./theme/tokens/typography"
 
 export default plugin(
-  function medusaUi({ addBase, addComponents, addUtilities, config, ...api }) {
+  function medusaUi({
+    addBase,
+    addComponents,
+    addUtilities,
+    matchUtilities,
+    config,
+    ...api
+  }) {
     const [darkMode, className = ".dark"] = ([] as string[]).concat(
       config("darkMode", "media")
     )
@@ -40,6 +47,44 @@ export default plugin(
         },
       })
     }
+
+    matchUtilities(
+      {
+        "slide-in-from-start": (value) => ({
+          "&:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *)": {
+            "--tw-enter-translate-x": `-${value}`,
+          },
+          "&:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *)": {
+            "--tw-enter-translate-x": value,
+          },
+        }),
+        "slide-out-to-start": (value) => ({
+          "&:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *)": {
+            "--tw-exit-translate-x": `-${value}`,
+          },
+          "&:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *)": {
+            "--tw-exit-translate-x": value,
+          },
+        }),
+        "slide-in-from-end": (value) => ({
+          "&:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *)": {
+            "--tw-enter-translate-x": value,
+          },
+          "&:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *)": {
+            "--tw-enter-translate-x": `-${value}`,
+          },
+        }),
+        "slide-out-to-end": (value) => ({
+          "&:where(:dir(ltr), [dir='ltr'], [dir='ltr'] *)": {
+            "--tw-exit-translate-x": value,
+          },
+          "&:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *)": {
+            "--tw-exit-translate-x": `-${value}`,
+          },
+        }),
+      },
+      { values: { "1/2": "50%" } }
+    )
 
     addComponents(typography)
 
